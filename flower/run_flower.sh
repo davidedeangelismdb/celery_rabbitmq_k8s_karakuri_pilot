@@ -14,4 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-flower --broker=amqp://guest:guest@${RABBITMQ_SERVICE_SERVICE_HOST:localhost}:5672//
+flower --broker=amqp://username:password@${RABBITMQ_SERVICE_SERVICE_HOST:localhost}:5672//

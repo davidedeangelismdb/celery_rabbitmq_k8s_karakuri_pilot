@@ -10,3 +10,4 @@ spec:
   selector:
     app: taskQueue
     component: rabbitmq
+  type: LoadBalancer

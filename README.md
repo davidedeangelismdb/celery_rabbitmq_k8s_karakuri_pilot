@@ -287,3 +287,26 @@ If you click on the tab called "Tasks", you should see an ever-growing list of t
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
 [![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/examples/celery-rabbitmq/README.md?pixel)]()
 <!-- END MUNGE: GENERATED_ANALYTICS -->
+
+
+#commands
+- pkill -9 -f 'celery worker'
+- ps auxww | grep 'celery' | awk '{print $2}' | xargs kill -9
+- kubectl exec -it celery-controller-f294m -- /bin/sh
+- docker build -t celery-test -f celery-test/Dockerfile celery-test/
+- docker build -t flower-test -f flower/Dockerfile flower/
+- minikube service flower-service --url
+
+- kubectl create -f rabbitmq-service.yaml
+- kubectl create -f rabbitmq-controller.yaml
+- kubectl create -f celery-controller.yaml
+- kubectl create -f flower-service.yaml
+- kubectl create -f flower-controller.yaml
+
+# delete
+kubectl delete -f rabbitmq-service.yaml
+kubectl delete -f rabbitmq-controller.yaml
+kubectl delete -f celery-controller.yaml
+kubectl delete -f flower-service.yaml
+kubectl delete -f flower-controller.yaml
+

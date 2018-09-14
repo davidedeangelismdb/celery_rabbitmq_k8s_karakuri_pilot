@@ -13,8 +13,9 @@ spec:
         component: flower
     spec:
       containers:
-      - image: endocode/flower
+      - image: flower-test
         name: flower
+        imagePullPolicy: Never
         resources:
           limits:
             cpu: 100m

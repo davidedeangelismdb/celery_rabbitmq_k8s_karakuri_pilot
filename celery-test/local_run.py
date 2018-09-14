@@ -1,4 +1,6 @@
-# Copyright 2016 The Kubernetes Authors All rights reserved.
+#!/usr/bin/env python
+
+# Copyright 2015 The Kubernetes Authors All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,19 +13,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM alpine:3.6
 
-RUN apk add --no-cache python3 python3-dev musl-dev util-linux linux-headers openssl-dev openssl git gcc libffi libffi-dev sudo
+import random
+import syslog
+import time
 
-RUN apk --update add bash
+from celery_app_local import add
+from celery_app_local import subtract
+from celery_app_local import divide
+from celery_app_local import multiply
 
-# install flower
-RUN pip3 install flower
 
-# Make sure we expose port 5555 so that we can connect to it
-EXPOSE 5555
+x = random.randint(1, 10)
+y = random.randint(1, 10)
 
-ADD run_flower.sh /usr/local/bin/run_flower.sh
-
-# Running flower
-CMD ["/bin/bash", "/usr/local/bin/run_flower.sh"]
+res = add.delay(x, y)
+time.sleep(5)
+if res.ready():
+    res.get()

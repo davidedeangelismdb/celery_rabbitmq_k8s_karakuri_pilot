@@ -1,4 +1,6 @@
-# Copyright 2016 The Kubernetes Authors All rights reserved.
+#!/bin/bash
+
+# Copyright 2014 The Kubernetes Authors All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,19 +13,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM alpine:3.6
 
-RUN apk add --no-cache python3 python3-dev musl-dev util-linux linux-headers openssl-dev openssl git gcc libffi libffi-dev sudo
+# Run the celery worker
+celery -A celery_app worker -f /app/celery.log &
 
-RUN apk --update add bash
-
-# install flower
-RUN pip3 install flower
-
-# Make sure we expose port 5555 so that we can connect to it
-EXPOSE 5555
-
-ADD run_flower.sh /usr/local/bin/run_flower.sh
-
-# Running flower
-CMD ["/bin/bash", "/usr/local/bin/run_flower.sh"]
+# Start firing periodic tasks automatically
+python3 /app/while_run.py

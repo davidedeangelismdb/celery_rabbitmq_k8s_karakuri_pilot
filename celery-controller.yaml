@@ -13,8 +13,9 @@ spec:
         component: celery
     spec:
       containers:
-      - image: endocode/celery-app-add
-        name: celery
+      - image: celery-test
+        name: celery-test
+        imagePullPolicy: Never
         ports:
         - containerPort: 5672
         resources:
